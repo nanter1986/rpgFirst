@@ -8,6 +8,7 @@ export(float) var scale_factor=0.5
 onready var animPlayer=$AnimationPlayer
 onready var anim_tree=$AnimationTree
 onready var state_machine
+onready var tilemap=get_parent().find_node("TileMap")
 var velocity=Vector2()
 var itemScene = preload("Item.tscn")
 var items_collected=[]
@@ -47,6 +48,9 @@ func use_item(position):
 	if find_node("Hotbar").find_node("Control").find_node("HBoxContainer").find_node("Panel"+position).get_child(0) != null:
 		var item=find_node("Hotbar").find_node("Control").find_node("HBoxContainer").find_node("Panel"+position).get_child(0)
 		print(item.item_name)
+		var tilePosition=tilemap.world_to_map(self.position)
+		print(str(tilePosition))
+		tilemap.set_cell(tilePosition.x,tilePosition.y,0)
 		item.queue_free()
 	else:
 		print("slot is empty")
