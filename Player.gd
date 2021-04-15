@@ -7,11 +7,13 @@ export(float) var scale_factor=0.5
 
 onready var animPlayer=$AnimationPlayer
 onready var anim_tree=$AnimationTree
+onready var hotbar=$Hotbar
 onready var state_machine
 onready var tilemap=get_parent().find_node("TileMap")
 var velocity=Vector2()
 var itemScene = preload("Item.tscn")
 var items_collected=[]
+var inventory_file = "user://inventory.save"
 
 func _ready():
 	state_machine= anim_tree.get("parameters/playback")
@@ -20,6 +22,7 @@ func _ready():
 	state_machine.start("Move")
 	self.scale.x*=scale_factor
 	self.scale.y*=scale_factor
+	load_inventory()
 
 
 func move_state(delta):
@@ -50,10 +53,32 @@ func use_item(position):
 		print(item.item_name)
 		var tilePosition=tilemap.world_to_map(self.position)
 		print(str(tilePosition))
-		tilemap.set_cell(tilePosition.x,tilePosition.y,0)
+		tilemap.set_cell(tilePosition.x+1,tilePosition.y,0)
 		item.queue_free()
 	else:
 		print("slot is empty")
+		
+func get_direction_the_player_is_facing():
+	pass
+	
+func add_tile_to_where_player_is_facing():
+	pass
+	
+func save_inventory():
+	var file = File.new()
+	file.open(inventory_file, File.WRITE)
+	file.store_var(hotbar, true)
+	file.close()
+	print("inventory saved")
+	
+func load_inventory():
+	var file = File.new()
+	if file.file_exists(inventory_file):
+		file.open(inventory_file, File.READ)
+		hotbar = file.get_var(true)
+		print("hotbar:"+str(hotbar))
+		file.close()
+	print("inventory loaded")
 	
 	
 func get_input():
@@ -100,6 +125,7 @@ func _on_ItemDetection_area_entered(area):
 		var item=create_the_item_to_be_added(area)
 		add_item_to_array_and_hotbar(item)
 	elif parent_type=="Portal":
+		save_inventory()
 		var the_next_scene=area.get_parent().next_scene
 		print(the_next_scene)
 # warning-ignore:return_value_discarded
