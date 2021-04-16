@@ -55,6 +55,7 @@ func use_item(position):
 		print(str(tilePosition))
 		tilemap.set_cell(tilePosition.x+1,tilePosition.y,0)
 		item.queue_free()
+		items_collected.remove(position)
 	else:
 		print("slot is empty")
 		
@@ -66,18 +67,39 @@ func add_tile_to_where_player_is_facing():
 	
 func save_inventory():
 	var file = File.new()
+	var items_to_save=[]
+	for i in items_collected:
+		items_to_save.append(i)
 	file.open(inventory_file, File.WRITE)
-	file.store_var(hotbar, true)
+	file.store_var(items_to_save, true)
+	print("saved items")
+	for i in items_to_save:
+		print(i)
 	file.close()
-	print("inventory saved")
+	print(items_to_save)
 	
 func load_inventory():
 	var file = File.new()
+	var items_to_load
 	if file.file_exists(inventory_file):
-		file.open(inventory_file, File.READ)
-		hotbar = file.get_var(true)
-		print("hotbar:"+str(hotbar))
-		file.close()
+		var error = file.open(inventory_file, File.READ)
+		if error == OK:
+			items_to_load = file.get_var(true)
+			print(items_to_load)
+			file.close()
+			print("a")
+			print("inventory to be loaded")
+			print(items_to_load)
+			var counter=0
+			if items_to_load!=[null]:
+				for i in items_to_load:
+					print(i)
+					items_collected.append(i)
+					counter+=1
+					var loaded_item_instance= itemScene.instance()
+					loaded_item_instance.init(i,10,10)
+					print("about to add "+i+"in position "+str(counter))
+					find_node("Hotbar").find_node("HBoxContainer").find_node("Panel"+str(counter)).add_child(loaded_item_instance)
 	print("inventory loaded")
 	
 	
@@ -114,7 +136,7 @@ func create_the_item_to_be_added(area):
 	
 func add_item_to_array_and_hotbar(item):
 	var size_of_items_array=items_collected.size()
-	items_collected.append(item)
+	items_collected.append(item.item_name)
 	print("item:"+str(item.item_name))
 	find_node("Hotbar").find_node("HBoxContainer").get_child(size_of_items_array).add_child(item)
 
