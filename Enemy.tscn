@@ -1,7 +1,61 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://ranger spritesheet calciumtrice.png" type="Texture" id=1]
 [ext_resource path="res://Enemy.gd" type="Script" id=2]
+
+[sub_resource type="Animation" id=15]
+resource_name = "attack_left"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 30, 31, 32, 33, 34, 35, 36, 37, 38, 39 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=16]
+resource_name = "attack_right"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 30, 31, 32, 33, 34, 35, 36, 37, 38, 39 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
 
 [sub_resource type="Animation" id=1]
 resource_name = "idle_left"
@@ -89,6 +143,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id=4]
 resource_name = "move_right"
+loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -118,18 +173,108 @@ tracks/1/keys = {
 radius = 7.15237
 height = 7.51101
 
+[sub_resource type="AnimationNodeAnimation" id=17]
+animation = "attack_left"
+
+[sub_resource type="AnimationNodeAnimation" id=18]
+animation = "attack_left"
+
+[sub_resource type="AnimationNodeAnimation" id=19]
+animation = "attack_right"
+
+[sub_resource type="AnimationNodeAnimation" id=20]
+animation = "attack_right"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=6]
+blend_point_0/node = SubResource( 17 )
+blend_point_0/pos = Vector2( -1, 0 )
+blend_point_1/node = SubResource( 18 )
+blend_point_1/pos = Vector2( 0, 1 )
+blend_point_2/node = SubResource( 19 )
+blend_point_2/pos = Vector2( 1, 0 )
+blend_point_3/node = SubResource( 20 )
+blend_point_3/pos = Vector2( 0, -1 )
+blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id=21]
+animation = "idle_left"
+
+[sub_resource type="AnimationNodeAnimation" id=22]
+animation = "idle_left"
+
+[sub_resource type="AnimationNodeAnimation" id=23]
+animation = "idle_right"
+
+[sub_resource type="AnimationNodeAnimation" id=24]
+animation = "idle_right"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=7]
+blend_point_0/node = SubResource( 21 )
+blend_point_0/pos = Vector2( -1, 0 )
+blend_point_1/node = SubResource( 22 )
+blend_point_1/pos = Vector2( 0, 1 )
+blend_point_2/node = SubResource( 23 )
+blend_point_2/pos = Vector2( 1, 0 )
+blend_point_3/node = SubResource( 24 )
+blend_point_3/pos = Vector2( 0, -1 )
+blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id=25]
+animation = "move_left"
+
+[sub_resource type="AnimationNodeAnimation" id=26]
+animation = "move_left"
+
+[sub_resource type="AnimationNodeAnimation" id=27]
+animation = "move_right"
+
+[sub_resource type="AnimationNodeAnimation" id=28]
+animation = "move_right"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=8]
+blend_point_0/node = SubResource( 25 )
+blend_point_0/pos = Vector2( -1, 0 )
+blend_point_1/node = SubResource( 26 )
+blend_point_1/pos = Vector2( 0, 1 )
+blend_point_2/node = SubResource( 27 )
+blend_point_2/pos = Vector2( 1, 0 )
+blend_point_3/node = SubResource( 28 )
+blend_point_3/pos = Vector2( 0, -1 )
+blend_mode = 1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=9]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=10]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=11]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=12]
+
+[sub_resource type="AnimationNodeStateMachine" id=13]
+states/attack/node = SubResource( 6 )
+states/attack/position = Vector2( 127, 159 )
+states/idle/node = SubResource( 7 )
+states/idle/position = Vector2( 127, 68 )
+states/move/node = SubResource( 8 )
+states/move/position = Vector2( 319, 68 )
+transitions = [ "idle", "move", SubResource( 9 ), "move", "idle", SubResource( 10 ), "idle", "attack", SubResource( 11 ), "attack", "idle", SubResource( 12 ) ]
+start_node = "idle"
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=14]
+
 [node name="Enemy" type="KinematicBody2D"]
 script = ExtResource( 2 )
 SPEED = 20
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
-flip_h = true
 vframes = 10
 hframes = 10
-frame = 29
+frame = 24
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/attack_left = SubResource( 15 )
+anims/attack_right = SubResource( 16 )
 anims/idle_left = SubResource( 1 )
 anims/idle_right = SubResource( 2 )
 anims/move_left = SubResource( 3 )
@@ -138,3 +283,12 @@ anims/move_right = SubResource( 4 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 4 )
 shape = SubResource( 5 )
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource( 13 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/playback = SubResource( 14 )
+parameters/attack/blend_position = Vector2( -0.014881, 0.818966 )
+parameters/idle/blend_position = Vector2( -0.220238, -0.275862 )
+parameters/move/blend_position = Vector2( 0.00297618, 0 )
