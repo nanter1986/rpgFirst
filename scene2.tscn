@@ -103,4 +103,4 @@ position = Vector2( 151.261, 105.168 )
 next_scene = "res://scene1.tscn"
 
 [node name="Enemy" parent="." instance=ExtResource( 5 )]
-position = Vector2( 284.221, 112.975 )
+position = Vector2( 275.897, 110.596 )
