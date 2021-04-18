@@ -129,6 +129,21 @@ func get_input():
 		use_item("2")
 	if Input.is_action_just_pressed("hotbar3"):
 		use_item("3")
+	if Input.is_action_just_pressed("hotbar4"):
+		use_item("4")
+	if Input.is_action_just_pressed("hotbar5"):
+		use_item("5")
+	if Input.is_action_just_pressed("hotbar6"):
+		use_item("6")
+	if Input.is_action_just_pressed("hotbar7"):
+		use_item("7")
+	if Input.is_action_just_pressed("hotbar8"):
+		use_item("8")
+	if Input.is_action_just_pressed("hotbar9"):
+		use_item("9")
+	if Input.is_action_just_pressed("hotbar10"):
+		use_item("10")
+	
 	#print("input vector:"+str(input_vector))
 	return input_vector
 
