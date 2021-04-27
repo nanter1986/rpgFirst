@@ -14,14 +14,17 @@ func get_button_position():
 	return position+radius
 
 func _input(event):
-	var event_dist_from_center=(event.position-get_parent().global_position).lenght()
-	
-	if event_dist_from_center<boundary*global_scale.x:
-		pass
-	
 	if event is InputEventScreenDrag or (event is InputEventScreenTouch and event.is_pressed()):
-		set_global_position(event.position-radius*get_parent().scale)
-		print(str(get_parent().scale))
-		if get_button_position().length()> boundary:
-			set_position(get_button_position().normalized()*boundary-radius)
-		ongoing_drag=event.get_indexed()
+		var event_dist_from_center=(event.position-get_parent().global_position).length()
+		
+		if event_dist_from_center<=boundary*global_scale.x or event.get_index()==ongoing_drag:
+			set_global_position(event.position-radius*global_scale)
+			if get_button_position().length()> boundary:
+				set_position(get_button_position().normalized()*boundary-radius)
+			ongoing_drag=event.get_index()
+		
+	if event is InputEventScreenTouch and !event.is_pressed() and event.get_index()==ongoing_drag:
+		ongoing_drag=-1
+		
+		
+	
