@@ -255,8 +255,8 @@ script = ExtResource( 2 )
 position = Vector2( -0.333744, 0.667419 )
 texture = ExtResource( 1 )
 flip_h = true
-vframes = 4
 hframes = 23
+vframes = 4
 frame = 23
 
 [node name="PortalDetection" type="Area2D" parent="."]
@@ -308,4 +308,5 @@ position = Vector2( -1.05112, 5.46583 )
 shape = SubResource( 26 )
 
 [node name="Hotbar" parent="." instance=ExtResource( 3 )]
+
 [connection signal="area_entered" from="ItemDetection" to="." method="_on_ItemDetection_area_entered"]
