@@ -5,6 +5,16 @@ var boundary
 
 var ongoing_drag=-1
 
+var return_accel=20
+
+var threshold=10
+
+func _process(delta):
+	if ongoing_drag==-1:
+		var pos_difference=(Vector2(0,0)-radius)-position
+		position+=pos_difference*return_accel*delta
+		
+
 func _ready():
 	boundary=160
 	print("boundary:")
@@ -27,4 +37,7 @@ func _input(event):
 		ongoing_drag=-1
 		
 		
-	
+func get_value():
+	if get_button_position().length()>threshold:
+		return get_button_position().normalized()
+	return Vector2(0,0)
