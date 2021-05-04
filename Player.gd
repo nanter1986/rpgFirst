@@ -10,6 +10,7 @@ onready var anim_tree=$AnimationTree
 onready var hotbar=$Hotbar
 onready var state_machine
 onready var tilemap=get_parent().find_node("TileMap")
+onready var joystick=get_parent().find_node("Joystick/Sprite")
 var velocity=Vector2()
 var itemScene = preload("Item.tscn")
 var items_collected={
@@ -27,6 +28,8 @@ var items_collected={
 var inventory_file = "user://inventory.save"
 
 func _ready():
+	print("player tree:")
+	print_tree_pretty()
 	state_machine= anim_tree.get("parameters/playback")
 	print(state_machine)
 	anim_tree.active=true
@@ -120,9 +123,10 @@ func load_inventory():
 	
 func get_input():
 	var input_vector=Vector2.ZERO
-	input_vector.x=Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
-	input_vector.y=Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
-	input_vector=input_vector.normalized()
+	#input_vector.x=Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
+	#input_vector.y=Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+	#input_vector=input_vector.normalized()
+	input_vector=joystick.get_value()
 	if Input.is_action_just_pressed("hotbar1"):
 		use_item("1")
 	if Input.is_action_just_pressed("hotbar2"):

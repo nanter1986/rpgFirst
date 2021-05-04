@@ -14,6 +14,7 @@ scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 3 )
 
 [node name="Sprite" type="TouchScreenButton" parent="."]
+position = Vector2( -47.5535, -46.7192 )
 normal = ExtResource( 2 )
 pressed = ExtResource( 1 )
 shape = SubResource( 1 )
