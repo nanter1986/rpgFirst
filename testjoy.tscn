@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Tree Branch.gd" type="Script" id=1]
 [ext_resource path="res://Tree Branch.png" type="Texture" id=2]
-[ext_resource path="res://Joystick.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Joystick/Joystick.tscn" type="PackedScene" id=3]
 
 [node name="Node2D" type="Node2D"]
 
@@ -15,5 +15,5 @@ position = Vector2( -0.965626, -1.41452 )
 texture = ExtResource( 2 )
 
 [node name="Joystick" parent="." instance=ExtResource( 3 )]
-position = Vector2( 17.74, 17.4749 )
-scale = Vector2( 0.0817331, 0.0835008 )
+margin_right = 335.0
+margin_bottom = -2.0
